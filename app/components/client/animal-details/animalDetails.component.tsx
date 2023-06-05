@@ -8,6 +8,7 @@ export function AnimalDetails() {
       return animal.id === state.selectedAnimal;
     }) || state.animals.flat()[0] || {};
   });
+
   const { name, type, description, image_url } = data;
   const imageSrc = `/${image_url}`;
   const animalDetailsHeading = name ? `${name} (${type})` : '';

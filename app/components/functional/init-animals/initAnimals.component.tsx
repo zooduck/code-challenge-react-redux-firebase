@@ -16,7 +16,7 @@ export function InitAnimals(props: any) {
       dispatch(setSelectedAnimal({ id: animals[0].id }));
       dispatch(setTotalNumberOfAnimalsInDatabase(totalNumberOfAnimalsInDatabase));
     };
-    getAnimals();
+    setTimeout(getAnimals, 1000);
   }, [dispatch]);
 
   return (

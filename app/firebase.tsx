@@ -33,9 +33,6 @@ export async function deleteAnimalFromDatabase(docID: string) {
 export async function getAnimalsFromDBWithPagination({ reset = false } = {}) {
   let paginatedQuery;
 
-  const documentCountSnapshot = await getCount(animalCollection);
-  const totalNumberOfAnimalsInDatabase = documentCountSnapshot.data().count;
-
   if (lastVisibleDocument !== undefined && !reset) {
     paginatedQuery = query(animalCollection, orderBy('name'), startAfter(lastVisibleDocument), limit(4));
   } else {
@@ -44,7 +41,7 @@ export async function getAnimalsFromDBWithPagination({ reset = false } = {}) {
 
   const documentSnapshots = await getDocs(paginatedQuery);
   const animals = documentSnapshots.docs.map((doc) => {
-    const { id, name, type, description, image_url, selected } = doc.data();
+    const { id, name, type, description, image_url } = doc.data();
 
     return {
       docID: doc.id,
@@ -52,8 +49,7 @@ export async function getAnimalsFromDBWithPagination({ reset = false } = {}) {
       name: name,
       type: type,
       description: description,
-      image_url: image_url,
-      selected: selected
+      image_url: image_url
     };
   });
 

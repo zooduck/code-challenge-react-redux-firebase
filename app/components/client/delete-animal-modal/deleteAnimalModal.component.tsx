@@ -1,8 +1,8 @@
 import { Modal } from "../modal/modal.component";
-import { useState, useRef, useMemo } from "react";
+import { useRef } from "react";
 import { animalsSlice } from "@/app/animalsSlice";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAnimalsFromDBWithPagination, getTotalNumberOfAnimalsInDatabase, db, deleteAnimalFromDatabase } from "@/app/firebase";
+import { getAnimalsFromDBWithPagination, getTotalNumberOfAnimalsInDatabase, deleteAnimalFromDatabase } from "@/app/firebase";
 import componentStyles from './deleteAnimalModal.module.css';
 import globalStyles from '../../../globals.module.css';
 
@@ -30,7 +30,6 @@ export function DeleteAnimalModal() {
   const isOpen = !!deleteAnimalModalData.id;
 
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(Boolean(id));
   const confirmButtonRef: any = useRef(null);
 
   setTimeout(() => {
@@ -44,7 +43,7 @@ export function DeleteAnimalModal() {
   async function updateAnimals() {
     dispatch(resetAnimals());
 
-    for (let c = 0; c < animals.length; c++) {
+    for (let c = 0; c < animals.length - 1; c++) {
       const reset = c == 0;
       const pageOfAnimals = await getAnimalsFromDBWithPagination({ reset: reset });
       dispatch(addAnimals({ animals: pageOfAnimals }));

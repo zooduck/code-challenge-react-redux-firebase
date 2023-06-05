@@ -28,7 +28,7 @@ export function PaginationControls() {
         setCounter(updatedCounter);
         dispatch(setCurrentAnimals({ page: updatedCounter }));
       }}>Last</button>
-      <span>Page {currentPage}</span>
+      <span>Page {currentPage + 1}</span>
       <button className={[styles["button"], styles["button--secondary"]].join(' ')} onClick={async () => {
         const nextCounter = counter + 1;
 
