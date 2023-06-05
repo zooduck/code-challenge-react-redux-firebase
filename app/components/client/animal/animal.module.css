@@ -1,0 +1,50 @@
+.animal {
+  cursor: pointer;
+  display: grid;
+  gap: var(--_padding-size-medium);
+  align-items: center;
+  padding: var(--_padding-size-medium);
+  border-style: solid solid solid dotted;
+  border-width: 1.2px 1.2px 1.2px 8px;
+  border-color: var(--color-gray-700);
+}
+
+.animal--selected {
+  border-color: deeppink;
+}
+
+.animal__image {
+  width: 50px;
+  height: 50px;
+  border: solid 3px magenta;
+}
+
+.animal--deleted {
+  animation: animalDelete 1s;
+}
+
+.animal__heading {
+  font-size: x-large;
+  text-transform: capitalize;
+}
+
+.animal__buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: var(--_padding-size-medium);
+}
+
+@keyframes animalDelete {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(0.8) rotate3d(1, 0, 0, 90deg);
+  }
+  100% {
+    transform: scale(0.8) rotate3d(1, 0, 0, 90deg);
+  }
+}

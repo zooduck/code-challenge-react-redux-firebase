@@ -1,0 +1,10 @@
+.delete-animal-modal {
+  display: grid;
+  gap: var(--_padding-size-medium);
+}
+
+.delete-animal-modal__buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--_padding-size-medium);
+}
