@@ -1,13 +1,11 @@
 import { animalsSlice } from "@/app/animalsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import componentStyles from './login.module.css';
 import globalStyles from '../../../globals.module.css';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const styles = {
-  ...globalStyles,
-  ...componentStyles
+  ...globalStyles
 };
 
 const { login, logout, initBasket } = animalsSlice.actions;
@@ -43,7 +41,7 @@ export function Login() {
   const buttonText = loggedIn === 'true' ? `Logout: ${loggedInUser.email}` : 'Login';
 
   return (
-    <button className={[styles["login-button"], styles["button"], styles["button--secondary"]].join(' ')} onClick={async () => {
+    <button className={[styles["button"], styles["button--secondary"]].join(' ')} onClick={async () => {
       if (loggedIn === 'true') {
         dispatch(logout());
       } else {

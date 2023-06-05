@@ -32,9 +32,16 @@ body {
 
 main {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr auto;
   background-color: var(--color-gray-900);
+  color: white;
   min-height: 100%;
+}
+
+footer {
+  font-size: small;
+  padding: var(--_padding-size-medium);
+  margin-top: var(--_padding-size-large);
 }
 
 .button {

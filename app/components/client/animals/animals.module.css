@@ -5,11 +5,19 @@
   color: white;
   padding: var(--_padding-size-large);
   display: grid;
-  gap: var(--_padding-size-medium);
+  gap: var(--_padding-size-large);
+}
+
+.animals__header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--_padding-size-large);
+  padding: var(--_padding-size-medium) 0;
 }
 
 .animals__heading {
-  font-size: xx-large;
+  font-size: large;
 }
 
 .animals__items {
@@ -24,7 +32,7 @@
   backdrop-filter: brightness(0.7);
 }
 
-@media screen and (max-width: 1023.9px) {
+@media screen and (max-width: 1079.9px) {
   .animals__items {
     --_animal-list-columns: 2;
   }

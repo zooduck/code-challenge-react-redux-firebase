@@ -3,7 +3,7 @@
   grid-template-columns: minmax(120px, 25%) 1fr minmax(120px, 25%);
   gap: var(--_padding-size-large);
   align-items: center;
-  padding: var(--_padding-size-medium);
+  padding: var(--_padding-size-medium) 0;
   width: 100%;
   margin: 0 auto;
   white-space: nowrap;

@@ -16,6 +16,7 @@ export default async function Home() {
         <Animals/>
         <AnimalDetails/>
         <AddAnimalForm/>
+        <footer>Built with create-next-app using Next.js, React, Redux Toolkit and Firebase | 2023-06-05T05:20:56.837Z</footer>
       </main>
       <DeleteAnimalModal/>
     </Provider>
