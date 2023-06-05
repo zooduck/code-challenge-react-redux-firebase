@@ -36,7 +36,6 @@
 
 .animal-details__image {
   height: 150px;
-  min-width: calc(150px * 1.3333);
   background-color: white;
   padding: var(--_padding-size-medium);
 }
