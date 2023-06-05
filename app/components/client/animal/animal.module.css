@@ -42,6 +42,9 @@
     transform: scale(0.8);
   }
   50% {
+    transform: scale(0.8);
+  }
+  75% {
     transform: scale(0.8) rotate3d(1, 0, 0, 90deg);
   }
   100% {

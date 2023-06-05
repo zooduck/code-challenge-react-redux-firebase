@@ -25,7 +25,11 @@ const animalsSlice = createSlice({
       state.deletedAnimals.push(action.payload.id);
     },
     updateCurrentAnimals(state) {
-      state.currentAnimals = state.animals[state.currentPage];
+      if (!state.animals[state.currentPage]) {
+        const currentPage = state.animals.length - 1 >= 0 ? state.animals.length - 1 : 0;
+        state.currentPage = currentPage;
+      }
+      state.currentAnimals = state.animals[state.currentPage] || [];
     },
     setDeleteAnimalModalData(state, action) {
       state.deleteAnimalModalData = action.payload;

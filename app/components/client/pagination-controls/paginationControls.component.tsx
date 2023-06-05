@@ -1,5 +1,4 @@
 import { getAnimalsFromDBWithPagination } from "@/app/firebase";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { animalsSlice } from "@/app/animalsSlice";
 import componentStyles from './paginationControls.module.css';
@@ -17,25 +16,22 @@ export function PaginationControls() {
   const { animals: animalsFromStore, currentPage } = useSelector((state: { animals: AnimalData[][]; currentPage: number; }) => {
     return state;
   });
-  const [counter, setCounter] = useState(0);
+
   return (
     <section className={styles["pagination-controls"]}>
       <button className={[styles["button"], styles["button--secondary"]].join(' ')} onClick={async () => {
-        if (counter === 0) {
+        const previousPage = currentPage -1;
+        if (previousPage < 0) {
           return;
         }
-        const updatedCounter = counter - 1;
-        setCounter(updatedCounter);
-        dispatch(setCurrentAnimals({ page: updatedCounter }));
+        dispatch(setCurrentAnimals({ page: previousPage }));
       }}>Last</button>
       <span>Page {currentPage + 1}</span>
       <button className={[styles["button"], styles["button--secondary"]].join(' ')} onClick={async () => {
-        const nextCounter = counter + 1;
+        const nextPage = currentPage + 1;
 
-        if (animalsFromStore[nextCounter]) {
-          dispatch(setCurrentAnimals({ page: nextCounter }));
-          setCounter(nextCounter);
-
+        if (animalsFromStore[nextPage]) {
+          dispatch(setCurrentAnimals({ page: nextPage }));
           return;
         }
 
@@ -46,8 +42,7 @@ export function PaginationControls() {
         }
 
         dispatch(addAnimals({ animals: animals }));
-        dispatch(setCurrentAnimals({ page: nextCounter }));
-        setCounter(nextCounter);
+        dispatch(setCurrentAnimals({ page: nextPage }));
       }}>Next</button>
     </section>
   )

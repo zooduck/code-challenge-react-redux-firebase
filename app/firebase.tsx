@@ -58,20 +58,6 @@ export async function getAnimalsFromDBWithPagination({ reset = false } = {}) {
   }
 
   return animals;
-
-  // return {
-  //   animals: animals,
-  //   totalNumberOfAnimalsInDatabase: totalNumberOfAnimalsInDatabase
-  // };
 }
 
 export { animalCollection, addDoc, getDocs, db };
-
-// export async function getAnimalsFromDB() {
-//   const animalSnapshot = await getDocs(animalCollection);
-//   const animals = animalSnapshot.docs.map((doc) => {
-//     return doc.data();
-//   });
-
-//   return animals;
-// }
