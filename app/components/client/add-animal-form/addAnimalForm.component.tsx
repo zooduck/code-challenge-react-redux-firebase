@@ -40,7 +40,7 @@ export function AddAnimalForm() {
 
   return (
     <section className={classList.join(' ')}>
-      <button className={styles["button"]} onClick={() => {
+      <button className={[styles["button"], styles['add-animal-form-container__toggle-button']].join(' ')} onClick={() => {
         const visibility = animalFormVisible === 'visible' ? 'hidden' : 'visible';
         setAnimalFormVisibility(visibility);
       }}>Add New Animal</button>

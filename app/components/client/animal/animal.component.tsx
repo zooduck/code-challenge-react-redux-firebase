@@ -10,8 +10,6 @@ const styles = {
   ...componentStyles,
 };
 
-console.log(styles);
-
 const {
   setSelectedAnimal,
   addAnimalToBasket,

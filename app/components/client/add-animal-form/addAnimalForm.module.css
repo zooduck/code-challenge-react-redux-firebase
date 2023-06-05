@@ -7,8 +7,6 @@
   top: calc(100vh - 40px);
   background-color: var(--color-gray-900);
   color: white;
-  border: solid 1.2px var(--color-gray-500);
-  border-right: none;
 }
 
 .add-animal-form-container--visible {
@@ -16,10 +14,13 @@
   box-shadow: -8px 0 12px rgba(0, 0, 0, 0.45);
 }
 
+.add-animal-form-container__toggle-button {
+  background-color: deeppink;
+}
+
 .add-animal-form {
   display: grid;
   padding: var(--_padding-size-medium);
-  /* background-color: var(--color-gray-300); */
   gap: var(--_padding-size-medium);
 }
 

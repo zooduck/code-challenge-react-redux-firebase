@@ -9,11 +9,15 @@ export function Animals() {
     return state;
   });
 
+  const animalsItemsClassName = currentAnimals.length
+    ? styles['animals__items']
+    : [styles['animals__items'], styles['animals__items--empty']].join(' ');
+
   return (
     <section className={styles['animals']}>
       <h1 className={styles['animals__heading']}>Animals in basket: {basket.length} | Total Animals: {totalNumberOfAnimalsInDatabase}</h1>
       <Login/>
-      <section className={styles['animals__items']}>
+      <section className={animalsItemsClassName}>
         {currentAnimals.map((animal: AnimalData) => {
           const amountInBasket = basket.filter((id) => {
             return id === animal.id;

@@ -17,6 +17,11 @@
   display: grid;
   grid-template-columns: repeat(var(--_animal-list-columns), 1fr);
   gap: var(--_padding-size-large);
+  min-height: 150px;
+}
+
+.animals__items--empty {
+  backdrop-filter: brightness(0.7);
 }
 
 @media screen and (max-width: 1023.9px) {
