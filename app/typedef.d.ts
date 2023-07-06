@@ -5,6 +5,8 @@ type AnimalData = {
   type: string;
   description: string;
   image_url: string;
+  image_height: number;
+  image_width: number;
   selected: boolean
 }
 

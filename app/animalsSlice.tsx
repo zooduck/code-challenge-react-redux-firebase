@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const animals: AnimalData[][] = [];
 const currentAnimals: AnimalData[] = [];
 const basket: AnimalData[] = [];
-const loggedIn = 'false'; // "Boolean" string since we need this in localStorage
+const loggedIn = false;
 const deletedAnimals: string[] = [];
 
 const animalsSlice = createSlice({
@@ -78,13 +78,14 @@ const animalsSlice = createSlice({
       state.basket.splice(indexOfAnimalToRemove, 1);
     },
     login(state, action) {
-      state.loggedIn = 'true';
+      state.loggedIn = true;
       state.loggedInUser = action.payload.user;
       localStorage.setItem('logged-in', 'true');
       localStorage.setItem('logged-in-user', JSON.stringify(action.payload.user));
     },
     logout(state) {
-      state.loggedIn = 'false';
+      state.loggedIn = false;
+      state.loggedInUser = {};
       localStorage.setItem('logged-in', 'false');
       localStorage.removeItem('logged-in-user');
     }

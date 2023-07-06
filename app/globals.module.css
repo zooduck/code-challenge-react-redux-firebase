@@ -27,3 +27,13 @@
   color: var(--color-danger);
   text-decoration: underline;
 }
+
+.error-modal {
+  display: grid;
+  gap: var(--_padding-size-medium);
+  justify-items: center;
+}
+
+.error-modal__button {
+  width: 50%;
+}

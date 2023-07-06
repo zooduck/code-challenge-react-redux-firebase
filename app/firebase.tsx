@@ -41,7 +41,7 @@ export async function getAnimalsFromDBWithPagination({ reset = false } = {}) {
 
   const documentSnapshots = await getDocs(paginatedQuery);
   const animals = documentSnapshots.docs.map((doc) => {
-    const { id, name, type, description, image_url } = doc.data();
+    const { id, name, type, description, image_url, image_height, image_width } = doc.data();
 
     return {
       docID: doc.id,
@@ -49,7 +49,9 @@ export async function getAnimalsFromDBWithPagination({ reset = false } = {}) {
       name: name,
       type: type,
       description: description,
-      image_url: image_url
+      image_url: image_url,
+      image_height: image_height,
+      image_width: image_width
     };
   });
 

@@ -1,5 +1,5 @@
 import { Modal } from "../modal/modal.component";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { animalsSlice } from "@/app/animalsSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAnimalsFromDBWithPagination, getTotalNumberOfAnimalsInDatabase, deleteAnimalFromDatabase } from "@/app/firebase";
@@ -27,13 +27,14 @@ export function DeleteAnimalModal() {
   });
 
   const { id, name, docID } = deleteAnimalModalData;
-  const isOpen = !!deleteAnimalModalData.id;
 
   const dispatch = useDispatch();
-  const confirmButtonRef: any = useRef(null);
+  const deleteAnimalModalConfirmButtonRef: any = useRef(null);
+  const errorModalConfirmButtonRef: any = useRef(null);
 
   setTimeout(() => {
-    confirmButtonRef.current?.focus();
+    deleteAnimalModalConfirmButtonRef.current?.focus();
+    errorModalConfirmButtonRef.current?.focus();
   });
 
   const { animals, selectedAnimal } = useSelector((state: { animals: AnimalData[][]; selectedAnimal: string; }) => {
@@ -43,37 +44,53 @@ export function DeleteAnimalModal() {
   async function updateAnimals() {
     dispatch(resetAnimals());
 
-    for (let c = 0; c < animals.length - 1; c++) {
+    for (let c = 0; c < animals.length; c++) {
       const reset = c == 0;
       const pageOfAnimals = await getAnimalsFromDBWithPagination({ reset: reset });
       dispatch(addAnimals({ animals: pageOfAnimals }));
     }
   }
 
+  useEffect(() => {
+    setShowDeleteAnimalModal(!!deleteAnimalModalData.id);
+  }, [deleteAnimalModalData]);
+
+  const [showDeleteAnimalModal, setShowDeleteAnimalModal] = useState(false);
+  const [deleteDocError, setDeleteDocError] = useState('');
+  const [showErrorModal, setShowErrorModal] = useState(false);
+
   return (
-    <Modal isOpen={isOpen}>
+    <>
+    <Modal isOpen={showDeleteAnimalModal}>
       <section className={styles["delete-animal-modal"]}>
         <p>Are you sure you want to delete &quot;{name}&quot; from the database?</p>
         <section className={styles["delete-animal-modal__buttons"]}>
           <button
             className={[styles["button"], styles["button--primary"]].join(' ')}
-            ref={confirmButtonRef}
+            ref={deleteAnimalModalConfirmButtonRef}
             onClick={async () => {
-            await deleteAnimalFromDatabase(docID);
+              try {
+                await deleteAnimalFromDatabase(docID);
+              } catch (error: any) {
+                setDeleteDocError(error.toString());
+                setShowDeleteAnimalModal(false);
+                setShowErrorModal(true);
+                return;
+              }
 
-            dispatch(removeAnimalFromBasket({ id: id, removeAllInstances: true }));
+              dispatch(removeAnimalFromBasket({ id: id, removeAllInstances: true }));
 
-            if (id === selectedAnimal) {
-              dispatch(setSelectedAnimal({ id: animals[0][0].id }));
-            }
+              if (id === selectedAnimal) {
+                dispatch(setSelectedAnimal({ id: animals[0][0].id }));
+              }
 
-            dispatch(setDeleteAnimalModalData({ id: '', name: '', docID: '' }));
-            dispatch(updateDeletedAnimals({ id: id }));
+              dispatch(setDeleteAnimalModalData({ id: '', name: '', docID: '' }));
+              dispatch(updateDeletedAnimals({ id: id }));
 
-            const totalNumberOfAnimalsInDatabase = await getTotalNumberOfAnimalsInDatabase();
-            dispatch(setTotalNumberOfAnimalsInDatabase(totalNumberOfAnimalsInDatabase));
+              const totalNumberOfAnimalsInDatabase = await getTotalNumberOfAnimalsInDatabase();
+              dispatch(setTotalNumberOfAnimalsInDatabase(totalNumberOfAnimalsInDatabase));
 
-            await updateAnimals();
+              await updateAnimals();
           }} onKeyDown={(event) => {
             const { key, shiftKey } = event;
             if (key === 'Tab' && shiftKey) {
@@ -91,5 +108,17 @@ export function DeleteAnimalModal() {
         </section>
       </section>
     </Modal>
+    <Modal isOpen={!showDeleteAnimalModal && showErrorModal}>
+      <section className={styles["error-modal"]}>
+        <h1>{deleteDocError}</h1>
+        <button
+          className={[styles["button"], styles["button--primary"], styles["error-modal__button"]].join(' ')}
+          ref={errorModalConfirmButtonRef}
+          onClick={() => {
+            setShowErrorModal(false);
+          }}>OK</button>
+      </section>
+    </Modal>
+    </>
   )
 }

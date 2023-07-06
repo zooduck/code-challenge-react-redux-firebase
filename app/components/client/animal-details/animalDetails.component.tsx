@@ -9,7 +9,7 @@ export function AnimalDetails() {
     }) || state.animals.flat()[0] || {};
   });
 
-  const { name, description, image_url } = data;
+  const { name, description, image_url, image_width, image_height } = data;
   const imageSrc = `/${image_url}`;
 
     if (name && description) {
@@ -17,7 +17,13 @@ export function AnimalDetails() {
         <section className={styles['animal-details']}>
         <h1 className={styles['animal-details__heading']}>{name}</h1>
         <figure className={styles['animal-details__figure']}>
-          <Image className={styles['animal-details__image']} src={imageSrc} alt={name}/>
+          <Image
+            className={styles['animal-details__image']}
+            src={imageSrc}
+            alt={name}
+            priority={name === 'cow'}
+            width={image_width}
+            height={image_height}/>
           <figcaption className={styles['animal-details__caption']}>{description}</figcaption>
         </figure>
       </section>

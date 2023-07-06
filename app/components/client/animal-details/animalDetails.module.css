@@ -38,6 +38,7 @@
   height: 150px;
   background-color: white;
   padding: var(--_padding-size-medium);
+  width: auto;
 }
 
 .animal-details__image-placeholder {

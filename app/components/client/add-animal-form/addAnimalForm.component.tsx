@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useSelector  } from "react-redux";
 import componentStyles from './addAnimalForm.module.css';
 import globalStyles from '../../../globals.module.css';
+import { Modal } from '../modal/modal.component';
 
 const styles = {
   ...globalStyles,
@@ -29,14 +30,19 @@ export function AddAnimalForm() {
     }
   });
   const [animalFormVisible, setAnimalFormVisibility] = useState('hidden');
+  const [addDocError, setAddDocError] = useState('');
+  const [showErrorModal, setShowErrorModal] = useState(false);
+
   const classList = [styles['add-animal-form-container']];
+
   if (animalFormVisible === 'visible') {
     classList.push(styles['add-animal-form-container--visible']);
   }
 
-  const { animals } = useSelector((state: { animals: AnimalData[][]; currentPage: number; }) => {
+  const { animals } = useSelector((state: { animals: AnimalData[][]; }) => {
     return state;
   });
+
 
   return (
     <section className={classList.join(' ')}>
@@ -49,13 +55,21 @@ export function AddAnimalForm() {
         onSubmit={handleSubmit(async (data) => {
           const { name, type, description } = data;
 
-          await addDoc(animalCollection, {
-            name: name.toLowerCase(),
-            type: type.toLowerCase(),
-            description: description,
-            image_url: 'potato.png',
-            id: crypto.randomUUID()
-          });
+          try {
+            await addDoc(animalCollection, {
+              name: name.toLowerCase(),
+              type: type.toLowerCase(),
+              description: description,
+              image_url: 'potato.png',
+              image_height: 512,
+              image_width: 512,
+              id: crypto.randomUUID()
+            });
+          } catch (error: any) {
+            setAddDocError(error.toString());
+            setShowErrorModal(true);
+            return;
+          }
 
           reset();
 
@@ -80,8 +94,8 @@ export function AddAnimalForm() {
         <input className={styles["add-animal-form__input"]} {...register("name", { required: true })} defaultValue="test" autoComplete='off' />
         {errors.name && <p className={styles["add-animal-form__error"]}>This field is required</p>}
         <label>Type*</label>
-        <select className={styles["add-animal-form__input"]} {...register("type", { required: true })}>
-          <option disabled selected value={''}>Select a type</option>
+        <select defaultValue={''} className={styles["add-animal-form__input"]} {...register("type", { required: true })}>
+          <option disabled value={''}>Select a type</option>
           <option>Mammal</option>
           <option>Cat</option>
           <option>Rodent</option>
@@ -97,6 +111,17 @@ export function AddAnimalForm() {
         {errors.description && <p className={styles["add-animal-form__error"]}>This field is required</p>}
         <input className={[styles["button"], styles["button--secondary"]].join(' ')} type="submit" />
       </form>
+
+      <Modal isOpen={showErrorModal}>
+        <section className={styles["error-modal"]}>
+          <h1>{addDocError}</h1>
+          <button
+            className={[styles["button"], styles["button--primary"], styles["error-modal__button"]].join(' ')}
+            onClick={() => {
+              setShowErrorModal(false);
+            }}>OK</button>
+        </section>
+      </Modal>
     </section>
   );
 }
