@@ -110,7 +110,12 @@ export function DeleteAnimalModal() {
     </Modal>
     <Modal isOpen={!showDeleteAnimalModal && showErrorModal}>
       <section className={styles["error-modal"]}>
-        <h1>{deleteDocError}</h1>
+        <header className={styles["error-modal__header"]}>
+          <span>&#x1F62C;</span>
+          <h1 className={styles["error-modal__heading"]}>YOU MUST BE LOGGED IN TO DELETE ANIMALS</h1>
+          <span>&#x1F62C;</span>
+        </header>
+        <p>{deleteDocError}</p>
         <button
           className={[styles["button"], styles["button--primary"], styles["error-modal__button"]].join(' ')}
           ref={errorModalConfirmButtonRef}

@@ -53,6 +53,13 @@ const animalsSlice = createSlice({
     addAnimalToBasket(state, action) {
       state.basket.push(action.payload.id);
     },
+    initAnimals(state: any, action) {
+      state.animals = [action.payload.animals];
+      state.totalNumberOfAnimalsInDatabase = action.payload.totalNumberOfAnimalsInDatabase;
+      state.currentAnimals = state.animals[action.payload.page];
+      state.currentPage = action.payload.page;
+      state.selectedAnimal = action.payload.selectedAnimal;
+    },
     initBasket(state, action) {
       state.basket = action.payload.basket;
     },

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, deleteDoc, doc } from 'firebase/firestore/lite';
 
 import { query, orderBy, startAfter, limit, getCount } from "firebase/firestore/lite";
 
@@ -13,9 +13,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
-const animalCollection = collection(db, 'animal');
+export const animalCollection = collection(db, 'animal');
 
 let lastVisibleDocument: any;
 
@@ -61,5 +61,3 @@ export async function getAnimalsFromDBWithPagination({ reset = false } = {}) {
 
   return animals;
 }
-
-export { animalCollection, addDoc, getDocs, db };

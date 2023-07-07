@@ -8,7 +8,7 @@
   outline: none;
 }
 
-.button:is(.button--primary, .button--secondary):focus {
+.button:is(.button--primary, .button--secondary, .button--danger):focus {
   outline: dotted 2px;
   outline-offset: -2px;
   text-decoration: none;
@@ -25,7 +25,6 @@
 
 .button--danger {
   color: var(--color-danger);
-  text-decoration: underline;
 }
 
 .error-modal {
@@ -36,4 +35,16 @@
 
 .error-modal__button {
   width: 50%;
+}
+
+.error-modal__header {
+  display: flex;
+  font-size: x-large;
+  gap: var(--_padding-size-medium);
+  justify-content: space-between;
+  width: 100%;
+}
+
+.error-modal__heading {
+  text-align: center;
 }

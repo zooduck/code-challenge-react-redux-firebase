@@ -1,8 +1,13 @@
-import { addDoc, animalCollection, getAnimalsFromDBWithPagination, getTotalNumberOfAnimalsInDatabase } from "@/app/firebase";
+import {
+  animalCollection,
+  getAnimalsFromDBWithPagination,
+  getTotalNumberOfAnimalsInDatabase
+} from "@/app/firebase";
+import { addDoc } from 'firebase/firestore/lite';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { animalsSlice } from "@/app/animalsSlice";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSelector  } from "react-redux";
 import componentStyles from './addAnimalForm.module.css';
 import globalStyles from '../../../globals.module.css';
@@ -41,6 +46,12 @@ export function AddAnimalForm() {
 
   const { animals } = useSelector((state: { animals: AnimalData[][]; }) => {
     return state;
+  });
+
+  const errorModalConfirmButtonRef: any = useRef(null);
+
+  setTimeout(() => {
+    errorModalConfirmButtonRef.current?.focus();
   });
 
 
@@ -114,8 +125,15 @@ export function AddAnimalForm() {
 
       <Modal isOpen={showErrorModal}>
         <section className={styles["error-modal"]}>
-          <h1>{addDocError}</h1>
+          <header className={styles["error-modal__header"]}>
+            <span>&#x1F62C;</span>
+            <h1 className={styles["error-modal__heading"]}>YOU MUST BE LOGGED IN TO ADD ANIMALS</h1>
+            <span>&#x1F62C;</span>
+          </header>
+          <p>{addDocError}</p>
           <button
+            autoFocus={true}
+            ref={errorModalConfirmButtonRef}
             className={[styles["button"], styles["button--primary"], styles["error-modal__button"]].join(' ')}
             onClick={() => {
               setShowErrorModal(false);
