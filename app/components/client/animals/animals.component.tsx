@@ -15,32 +15,6 @@ export function Animals() {
 
   return (
     <section className={styles['animals']}>
-      <section className={styles['animals__login']}>
-        <Login />
-      </section>
-
-      <details className={styles['animals__description']}>
-        <summary className={styles['animals__description-summary']}>About this app</summary>
-        <p>
-          This app was built using create-next-app, redux-toolkit and firebase and deployed using Vercel.
-        </p>
-        <p>
-          Animals are fetched from the firestore database in batches of 4 using paginated queries.
-        </p>
-        <p>
-          You will need to login if you want to add or delete animals. Also, the basket is cached by
-          localStorage when you are logged in.
-        </p>
-        <p>
-          <a
-            className={styles['animals__description-github-link']}
-            href="https://github.com/zooduck/code-challenge-react-redux-firebase"
-            target="_blank">
-              View project on Github
-          </a>
-        </p>
-      </details>
-
       <header className={styles['animals__header']}>
         <h1 className={styles['animals__heading']}>Animals in basket: {basket.length} | Total Animals: {totalNumberOfAnimalsInDatabase}</h1>
       </header>
@@ -56,6 +30,7 @@ export function Animals() {
           )
         })}
       </section>
+
       <PaginationControls/>
     </section>
   )

@@ -7,12 +7,14 @@ import { InitAnimals } from './components/functional/init-animals/initAnimals.co
 import { AnimalDetails } from './components/client/animal-details/animalDetails.component'
 import { AddAnimalForm } from './components/client/add-animal-form/addAnimalForm.component';
 import { DeleteAnimalModal } from './components/client/delete-animal-modal/deleteAnimalModal.component';
+import { Header } from './components/client/header/Header.component';
 
 export default async function Home() {
   return (
     <Provider store={store}>
       <InitAnimals/>
       <main>
+        <Header/>
         <Animals/>
         <AnimalDetails/>
         <AddAnimalForm/>

@@ -1,6 +1,4 @@
 .animals {
-  position: sticky;
-  top: 0;
   background-color: var(--color-gray-900);
   color: white;
   padding: var(--_padding-size-large);
@@ -57,10 +55,6 @@
 }
 
 @media screen and (max-width: 767.9px) {
-  .animals {
-    position: relative;
-  }
-
   .animals__items {
     --_animal-list-columns: 1;
   }
