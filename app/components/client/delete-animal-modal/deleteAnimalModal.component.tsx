@@ -39,7 +39,6 @@ export function DeleteAnimalModal() {
     return state;
   });
 
-
   useEffect(() => {
     setShowDeleteAnimalModal(!!deleteAnimalModalData.id);
   }, [deleteAnimalModalData]);

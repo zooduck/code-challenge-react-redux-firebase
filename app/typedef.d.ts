@@ -7,7 +7,7 @@ type AnimalData = {
   image_url: string;
   image_height: number;
   image_width: number;
-  selected: boolean
+  selected?: boolean
 }
 
 type AnimalDetail = {

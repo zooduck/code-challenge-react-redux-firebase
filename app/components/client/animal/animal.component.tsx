@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { animalsSlice } from "@/app/animalsSlice";
 import { useMemo } from "react";
-
 import componentStyles from './animal.module.css';
 import globalStyles from '../../../globals.module.css';
 import { getAnimalsFromDBWithPagination } from "@/app/firebase";

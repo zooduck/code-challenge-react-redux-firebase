@@ -45,7 +45,7 @@ export function Login() {
   const tryLogin = async () => {
     let user: any;
     try {
-      // Login with firebase user account
+      // Login with firebase user account (for development and testing)
       const auth = getAuth();
       const userCredential = await signInWithEmailAndPassword(auth, 'user@example.com', 'abc123');
       user = {

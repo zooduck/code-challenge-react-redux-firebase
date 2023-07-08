@@ -31,7 +31,14 @@ export function Animals() {
           You will need to login if you want to add or delete animals. Also, the basket is cached by
           localStorage when you are logged in.
         </p>
-
+        <p>
+          <a
+            className={styles['animals__description-github-link']}
+            href="https://github.com/zooduck/code-challenge-react-redux-firebase"
+            target="_blank">
+              View project on Github
+          </a>
+        </p>
       </details>
       <section className={animalsItemsClassName}>
         {currentAnimals.map((animal: AnimalData) => {

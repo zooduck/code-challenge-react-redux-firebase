@@ -33,6 +33,10 @@
   margin-block-start: 1em;
 }
 
+.animals__description-github-link {
+  text-decoration: underline;
+}
+
 .animals__items {
   --_animal-list-columns: 4;
   display: grid;

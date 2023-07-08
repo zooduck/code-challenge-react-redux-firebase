@@ -37,7 +37,7 @@ export function PaginationControls() {
           return;
         }
 
-        const animals = await getAnimalsFromDBWithPagination();
+        const animals:AnimalData[] = await getAnimalsFromDBWithPagination();
 
         if (!animals.length) {
           return;

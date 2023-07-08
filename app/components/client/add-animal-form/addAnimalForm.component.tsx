@@ -56,7 +56,6 @@ export function AddAnimalForm() {
     errorModalConfirmButtonRef.current?.focus();
   });
 
-
   return (
     <section className={classList.join(' ')}>
       <button className={[styles["button"], styles['add-animal-form-container__toggle-button']].join(' ')} onClick={() => {
@@ -88,7 +87,6 @@ export function AddAnimalForm() {
           setAnimalFormVisibility('hidden');
           setLastAnimalAddedToDatabse({ name: name, type: type });
           setShowSuccessModal(true);
-
 
           reset();
 
@@ -148,6 +146,7 @@ export function AddAnimalForm() {
             }}>OK</button>
         </section>
       </Modal>
+
       <Modal isOpen={showSuccessModal}>
         <section className={styles["alert-modal"]}>
           <header className={styles["alert-modal__header"]}>
