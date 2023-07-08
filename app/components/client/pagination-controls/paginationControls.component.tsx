@@ -13,9 +13,11 @@ const { addAnimals, setCurrentAnimals } = animalsSlice.actions;
 
 export function PaginationControls() {
   const dispatch = useDispatch();
-  const { animals: animalsFromStore, currentPage } = useSelector((state: { animals: AnimalData[][]; currentPage: number; }) => {
+  const { animals: animalsFromStore, currentPage, totalNumberOfAnimalsInDatabase } = useSelector((state: { animals: AnimalData[][]; currentPage: number; totalNumberOfAnimalsInDatabase: number; }) => {
     return state;
   });
+
+  const pages = Math.ceil(totalNumberOfAnimalsInDatabase / 4);
 
   return (
     <section className={styles["pagination-controls"]}>
@@ -26,7 +28,7 @@ export function PaginationControls() {
         }
         dispatch(setCurrentAnimals({ page: previousPage }));
       }}>Last</button>
-      <span>Page {currentPage + 1} {animalsFromStore?.length ? 'of ' + animalsFromStore.length : ''}</span>
+      <span>Page {currentPage + 1} of {pages}</span>
       <button className={[styles["button"], styles["button--secondary"]].join(' ')} onClick={async () => {
         const nextPage = currentPage + 1;
 
