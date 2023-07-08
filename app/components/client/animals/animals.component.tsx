@@ -15,10 +15,10 @@ export function Animals() {
 
   return (
     <section className={styles['animals']}>
-      <header className={styles['animals__header']}>
-        <h1 className={styles['animals__heading']}>Animals in basket: {basket.length} | Total Animals: {totalNumberOfAnimalsInDatabase}</h1>
-        <Login/>
-      </header>
+      <section className={styles['animals__login']}>
+        <Login />
+      </section>
+
       <details className={styles['animals__description']}>
         <summary className={styles['animals__description-summary']}>About this app</summary>
         <p>
@@ -40,6 +40,11 @@ export function Animals() {
           </a>
         </p>
       </details>
+
+      <header className={styles['animals__header']}>
+        <h1 className={styles['animals__heading']}>Animals in basket: {basket.length} | Total Animals: {totalNumberOfAnimalsInDatabase}</h1>
+      </header>
+
       <section className={animalsItemsClassName}>
         {currentAnimals.map((animal: AnimalData) => {
           const amountInBasket = basket.filter((id) => {

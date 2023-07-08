@@ -8,12 +8,13 @@
   gap: var(--_padding-size-large);
 }
 
+.animals__login {
+  display: flex;
+  justify-content: end;
+}
+
 .animals__header {
   display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: var(--_padding-size-large);
-  padding: var(--_padding-size-medium) 0;
 }
 
 .animals__heading {
