@@ -4,7 +4,6 @@
   position: fixed;
   bottom: 0;
   right: 0;
-  top: calc(100% - 45px);
   background-color: var(--color-gray-900);
   color: white;
 }
@@ -20,9 +19,13 @@
 }
 
 .add-animal-form {
-  display: grid;
+  display: none;
   padding: var(--_padding-size-medium);
   gap: var(--_padding-size-medium);
+}
+
+.add-animal-form-container--visible .add-animal-form {
+  display: grid;
 }
 
 .add-animal-form__input  {
