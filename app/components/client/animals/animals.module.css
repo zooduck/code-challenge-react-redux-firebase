@@ -20,6 +20,19 @@
   font-size: large;
 }
 
+.animals__description {
+  background-color: darkslateblue;
+  padding: var(--_padding-size-large);
+}
+
+.animals__description-summary {
+  cursor: pointer;
+}
+
+.animals__description p:not(:first-child) {
+  margin-block-start: 1em;
+}
+
 .animals__items {
   --_animal-list-columns: 4;
   display: grid;

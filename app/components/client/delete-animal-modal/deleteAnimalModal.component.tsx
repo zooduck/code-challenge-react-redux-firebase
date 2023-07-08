@@ -2,7 +2,7 @@ import { Modal } from "../modal/modal.component";
 import { useEffect, useRef, useState } from "react";
 import { animalsSlice } from "@/app/animalsSlice";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAnimalsFromDBWithPagination, getTotalNumberOfAnimalsInDatabase, deleteAnimalFromDatabase } from "@/app/firebase";
+import { getTotalNumberOfAnimalsInDatabase, deleteAnimalFromDatabase } from "@/app/firebase";
 import componentStyles from './deleteAnimalModal.module.css';
 import globalStyles from '../../../globals.module.css';
 
@@ -14,8 +14,6 @@ const styles = {
 const {
   removeAnimalFromBasket,
   setSelectedAnimal,
-  resetAnimals,
-  addAnimals,
   setDeleteAnimalModalData,
   updateDeletedAnimals,
   setTotalNumberOfAnimalsInDatabase
@@ -41,15 +39,6 @@ export function DeleteAnimalModal() {
     return state;
   });
 
-  async function updateAnimals() {
-    dispatch(resetAnimals());
-
-    for (let c = 0; c < animals.length; c++) {
-      const reset = c == 0;
-      const pageOfAnimals = await getAnimalsFromDBWithPagination({ reset: reset });
-      dispatch(addAnimals({ animals: pageOfAnimals }));
-    }
-  }
 
   useEffect(() => {
     setShowDeleteAnimalModal(!!deleteAnimalModalData.id);
@@ -89,8 +78,6 @@ export function DeleteAnimalModal() {
 
               const totalNumberOfAnimalsInDatabase = await getTotalNumberOfAnimalsInDatabase();
               dispatch(setTotalNumberOfAnimalsInDatabase(totalNumberOfAnimalsInDatabase));
-
-              await updateAnimals();
           }} onKeyDown={(event) => {
             const { key, shiftKey } = event;
             if (key === 'Tab' && shiftKey) {
@@ -109,15 +96,15 @@ export function DeleteAnimalModal() {
       </section>
     </Modal>
     <Modal isOpen={!showDeleteAnimalModal && showErrorModal}>
-      <section className={styles["error-modal"]}>
-        <header className={styles["error-modal__header"]}>
+      <section className={styles["alert-modal"]}>
+        <header className={styles["alert-modal__header"]}>
           <span>&#x1F62C;</span>
-          <h1 className={styles["error-modal__heading"]}>YOU MUST BE LOGGED IN TO DELETE ANIMALS</h1>
+          <h1 className={styles["alert-modal__heading"]}>YOU MUST BE LOGGED IN TO DELETE ANIMALS</h1>
           <span>&#x1F62C;</span>
         </header>
         <p>{deleteDocError}</p>
         <button
-          className={[styles["button"], styles["button--primary"], styles["error-modal__button"]].join(' ')}
+          className={[styles["button"], styles["button--primary"], styles["alert-modal__button"]].join(' ')}
           ref={errorModalConfirmButtonRef}
           onClick={() => {
             setShowErrorModal(false);

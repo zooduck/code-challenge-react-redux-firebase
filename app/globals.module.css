@@ -27,17 +27,17 @@
   color: var(--color-danger);
 }
 
-.error-modal {
+.alert-modal {
   display: grid;
   gap: var(--_padding-size-medium);
   justify-items: center;
 }
 
-.error-modal__button {
+.alert-modal__button {
   width: 50%;
 }
 
-.error-modal__header {
+.alert-modal__header {
   display: flex;
   font-size: x-large;
   gap: var(--_padding-size-medium);
@@ -45,6 +45,10 @@
   width: 100%;
 }
 
-.error-modal__heading {
+.alert-modal__heading {
   text-align: center;
+}
+
+.alert-modal__list {
+  border-top: solid 3px;
 }

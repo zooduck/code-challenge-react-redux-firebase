@@ -35,7 +35,13 @@ const animalsSlice = createSlice({
       state.deleteAnimalModalData = action.payload;
     },
     addAnimals(state, action) {
+      if (!action.payload.animals.length) {
+        return;
+      }
       state.animals.push(action.payload.animals);
+    },
+    replaceAnimals(state, action) {
+      state.animals = action.payload.animals;
     },
     resetAnimals(state) {
       state.animals = [];

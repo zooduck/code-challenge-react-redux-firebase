@@ -26,7 +26,7 @@ export function PaginationControls() {
         }
         dispatch(setCurrentAnimals({ page: previousPage }));
       }}>Last</button>
-      <span>Page {currentPage + 1}</span>
+      <span>Page {currentPage + 1} {animalsFromStore?.length ? 'of ' + animalsFromStore.length : ''}</span>
       <button className={[styles["button"], styles["button--secondary"]].join(' ')} onClick={async () => {
         const nextPage = currentPage + 1;
 

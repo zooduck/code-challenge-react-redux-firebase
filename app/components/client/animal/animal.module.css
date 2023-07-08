@@ -14,7 +14,7 @@
 }
 
 .animal--deleted {
-  animation: animalDelete 1s;
+  animation: animalDelete 1s both;
 }
 
 .animal__heading {

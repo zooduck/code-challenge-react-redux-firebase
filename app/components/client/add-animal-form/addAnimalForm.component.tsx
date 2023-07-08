@@ -37,6 +37,8 @@ export function AddAnimalForm() {
   const [animalFormVisible, setAnimalFormVisibility] = useState('hidden');
   const [addDocError, setAddDocError] = useState('');
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [lastAnimalAddedToDatabase, setLastAnimalAddedToDatabse] = useState({ name: '', type: '' });
 
   const classList = [styles['add-animal-form-container']];
 
@@ -65,22 +67,28 @@ export function AddAnimalForm() {
         className={styles['add-animal-form']}
         onSubmit={handleSubmit(async (data) => {
           const { name, type, description } = data;
+          const animalData = {
+            name: name.toLowerCase(),
+            type: type.toLowerCase(),
+            description: description,
+            image_url: 'potato.png',
+            image_height: 512,
+            image_width: 512,
+            id: crypto.randomUUID()
+          };
 
           try {
-            await addDoc(animalCollection, {
-              name: name.toLowerCase(),
-              type: type.toLowerCase(),
-              description: description,
-              image_url: 'potato.png',
-              image_height: 512,
-              image_width: 512,
-              id: crypto.randomUUID()
-            });
+            await addDoc(animalCollection, animalData);
           } catch (error: any) {
             setAddDocError(error.toString());
             setShowErrorModal(true);
             return;
           }
+
+          setAnimalFormVisibility('hidden');
+          setLastAnimalAddedToDatabse({ name: name, type: type });
+          setShowSuccessModal(true);
+
 
           reset();
 
@@ -124,19 +132,42 @@ export function AddAnimalForm() {
       </form>
 
       <Modal isOpen={showErrorModal}>
-        <section className={styles["error-modal"]}>
-          <header className={styles["error-modal__header"]}>
+        <section className={styles["alert-modal"]}>
+          <header className={styles["alert-modal__header"]}>
             <span>&#x1F62C;</span>
-            <h1 className={styles["error-modal__heading"]}>YOU MUST BE LOGGED IN TO ADD ANIMALS</h1>
+            <h1 className={styles["alert-modal__heading"]}>YOU MUST BE LOGGED IN TO ADD ANIMALS</h1>
             <span>&#x1F62C;</span>
           </header>
           <p>{addDocError}</p>
           <button
             autoFocus={true}
             ref={errorModalConfirmButtonRef}
-            className={[styles["button"], styles["button--primary"], styles["error-modal__button"]].join(' ')}
+            className={[styles["button"], styles["button--primary"], styles["alert-modal__button"]].join(' ')}
             onClick={() => {
               setShowErrorModal(false);
+            }}>OK</button>
+        </section>
+      </Modal>
+      <Modal isOpen={showSuccessModal}>
+        <section className={styles["alert-modal"]}>
+          <header className={styles["alert-modal__header"]}>
+            <span>&#x1F60D;</span>
+            <h1 className={styles["alert-modal__heading"]}>
+              THE FOLLOWING ANIMAL WAS ADDED TO THE DATABASE
+              <ul className={styles["alert-modal__list"]}>
+                <li>Name: {lastAnimalAddedToDatabase.name}</li>
+                <li>Type: {lastAnimalAddedToDatabase.type}</li>
+              </ul>
+            </h1>
+            <span>&#x1F60D;</span>
+          </header>
+          <p>{addDocError}</p>
+          <button
+            autoFocus={true}
+            ref={errorModalConfirmButtonRef}
+            className={[styles["button"], styles["button--primary"], styles["alert-modal__button"]].join(' ')}
+            onClick={() => {
+              setShowSuccessModal(false);
             }}>OK</button>
         </section>
       </Modal>

@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { animalsSlice } from "@/app/animalsSlice";
-import { useEffect, useState, useMemo } from "react";
+import { useMemo } from "react";
 
 import componentStyles from './animal.module.css';
 import globalStyles from '../../../globals.module.css';
+import { getAnimalsFromDBWithPagination } from "@/app/firebase";
 
 const styles = {
   ...globalStyles,
@@ -11,6 +12,7 @@ const styles = {
 };
 
 const {
+  replaceAnimals,
   setSelectedAnimal,
   addAnimalToBasket,
   removeAnimalFromBasket,
@@ -23,7 +25,7 @@ export function Animal(props: { data: AnimalData; amountInBasket: number; isSele
   const { id, name, type, docID } = props.data;
   const dispatch = useDispatch();
 
-  const { animals, deletedAnimals } = useSelector((state: { animals: AnimalData[][]; selectedAnimal: string; deletedAnimals: string[]; }) => {
+  const { animals, deletedAnimals } = useSelector((state: { animals: AnimalData[][]; selectedAnimal: string; deletedAnimals: string[]; currentPage: number; }) => {
     return state;
   });
 
@@ -40,15 +42,26 @@ export function Animal(props: { data: AnimalData; amountInBasket: number; isSele
     return classList;
   }, [isSelected, isDeleted]);
 
-  const [className, setClassName] = useState(classList.join(' '));
+  const className = classList.join(' ');
 
-  useEffect(() => {
-    setClassName(classList.join(' '));
-  }, [classList]);
+  async function updateAnimals() {
+    const newAnimals = [];
+    for (let c = 0; c < animals.length; c++) {
+      const reset = c == 0;
+      const pageOfAnimals = await getAnimalsFromDBWithPagination({ reset: reset });
+      if (!pageOfAnimals.length) {
+        continue;
+      }
+      newAnimals.push(pageOfAnimals);
+    }
+
+    dispatch(replaceAnimals({ animals: newAnimals }));
+    dispatch(updateCurrentAnimals());
+  }
 
   return (
     <section className={className} onAnimationEnd={() => {
-      dispatch(updateCurrentAnimals());
+      updateAnimals();
     }}>
       <section onClick={() => {
         dispatch(setSelectedAnimal({ id: id }));

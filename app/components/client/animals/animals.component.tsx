@@ -19,6 +19,20 @@ export function Animals() {
         <h1 className={styles['animals__heading']}>Animals in basket: {basket.length} | Total Animals: {totalNumberOfAnimalsInDatabase}</h1>
         <Login/>
       </header>
+      <details className={styles['animals__description']}>
+        <summary className={styles['animals__description-summary']}>About this app</summary>
+        <p>
+          This app was built using create-next-app, redux-toolkit and firebase and deployed using Vercel.
+        </p>
+        <p>
+          Animals are fetched from the firestore database in batches of 4 using paginated queries.
+        </p>
+        <p>
+          You will need to login if you want to add or delete animals. Also, the basket is cached by
+          localStorage when you are logged in.
+        </p>
+
+      </details>
       <section className={animalsItemsClassName}>
         {currentAnimals.map((animal: AnimalData) => {
           const amountInBasket = basket.filter((id) => {
