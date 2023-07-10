@@ -39,3 +39,21 @@
 .add-animal-form__error {
   color: var(--color-danger);
 }
+
+.success-modal__animal-details {
+  border-top: solid 2px;
+  display: flex;
+  gap: var(--_padding-size-large);
+  justify-content: center;
+  overflow: hidden;
+}
+
+.success-modal__animal-details-name,
+.success-modal__animal-details-type {
+  white-space: nowrap;
+}
+
+.success-modal__animal-details-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

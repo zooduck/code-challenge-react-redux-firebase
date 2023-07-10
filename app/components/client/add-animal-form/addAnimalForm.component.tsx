@@ -51,9 +51,11 @@ export function AddAnimalForm() {
   });
 
   const errorModalConfirmButtonRef: any = useRef(null);
+  const successModalConfirmButtonRef: any = useRef(null);
 
   setTimeout(() => {
     errorModalConfirmButtonRef.current?.focus();
+    successModalConfirmButtonRef.current?.focus();
   });
 
   return (
@@ -148,22 +150,21 @@ export function AddAnimalForm() {
       </Modal>
 
       <Modal isOpen={showSuccessModal}>
-        <section className={styles["alert-modal"]}>
+        <section className={[styles["alert-modal"], styles['success-modal']].join(' ')}>
           <header className={styles["alert-modal__header"]}>
             <span>&#x1F60D;</span>
             <h1 className={styles["alert-modal__heading"]}>
               THE FOLLOWING ANIMAL WAS ADDED TO THE DATABASE
-              <ul className={styles["alert-modal__list"]}>
-                <li>Name: {lastAnimalAddedToDatabase.name}</li>
-                <li>Type: {lastAnimalAddedToDatabase.type}</li>
-              </ul>
+              <section className={styles["success-modal__animal-details"]}>
+                <div className={styles["success-modal__animal-details-name"]}>Name: {lastAnimalAddedToDatabase.name}</div>
+                <div className={styles["success-modal__animal-details-type"]}>Type: {lastAnimalAddedToDatabase.type}</div>
+              </section>
             </h1>
             <span>&#x1F60D;</span>
           </header>
-          <p>{addDocError}</p>
           <button
             autoFocus={true}
-            ref={errorModalConfirmButtonRef}
+            ref={successModalConfirmButtonRef}
             className={[styles["button"], styles["button--primary"], styles["alert-modal__button"]].join(' ')}
             onClick={() => {
               setShowSuccessModal(false);

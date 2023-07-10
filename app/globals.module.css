@@ -42,13 +42,11 @@
   font-size: x-large;
   gap: var(--_padding-size-medium);
   justify-content: space-between;
+  overflow: hidden;
   width: 100%;
 }
 
 .alert-modal__heading {
+  overflow: hidden;
   text-align: center;
-}
-
-.alert-modal__list {
-  border-top: solid 3px;
 }
