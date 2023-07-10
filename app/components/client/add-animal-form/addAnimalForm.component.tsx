@@ -7,7 +7,7 @@ import { addDoc } from 'firebase/firestore/lite';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { animalsSlice } from "@/app/animalsSlice";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useSelector  } from "react-redux";
 import componentStyles from './addAnimalForm.module.css';
 import globalStyles from '../../../globals.module.css';
@@ -50,13 +50,6 @@ export function AddAnimalForm() {
     return state;
   });
 
-  const errorModalConfirmButtonRef: any = useRef(null);
-  const successModalConfirmButtonRef: any = useRef(null);
-
-  setTimeout(() => {
-    errorModalConfirmButtonRef.current?.focus();
-    successModalConfirmButtonRef.current?.focus();
-  });
 
   return (
     <section className={classList.join(' ')}>
@@ -141,7 +134,6 @@ export function AddAnimalForm() {
           <p className={styles["alert-modal__error"]}>{addDocError}</p>
           <button
             autoFocus={true}
-            ref={errorModalConfirmButtonRef}
             className={[styles["button"], styles["button--primary"], styles["alert-modal__button"]].join(' ')}
             onClick={() => {
               setShowErrorModal(false);
@@ -164,7 +156,6 @@ export function AddAnimalForm() {
           </header>
           <button
             autoFocus={true}
-            ref={successModalConfirmButtonRef}
             className={[styles["button"], styles["button--primary"], styles["alert-modal__button"]].join(' ')}
             onClick={() => {
               setShowSuccessModal(false);

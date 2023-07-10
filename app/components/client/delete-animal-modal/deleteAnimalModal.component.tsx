@@ -1,5 +1,5 @@
 import { Modal } from "../modal/modal.component";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { animalsSlice } from "@/app/animalsSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { getTotalNumberOfAnimalsInDatabase, deleteAnimalFromDatabase } from "@/app/firebase";
@@ -27,13 +27,6 @@ export function DeleteAnimalModal() {
   const { id, name, docID } = deleteAnimalModalData;
 
   const dispatch = useDispatch();
-  const deleteAnimalModalConfirmButtonRef: any = useRef(null);
-  const errorModalConfirmButtonRef: any = useRef(null);
-
-  setTimeout(() => {
-    deleteAnimalModalConfirmButtonRef.current?.focus();
-    errorModalConfirmButtonRef.current?.focus();
-  });
 
   const { animals, selectedAnimal } = useSelector((state: { animals: AnimalData[][]; selectedAnimal: string; }) => {
     return state;
@@ -54,8 +47,8 @@ export function DeleteAnimalModal() {
         <p>Are you sure you want to delete &quot;{name}&quot; from the database?</p>
         <section className={styles["delete-animal-modal__buttons"]}>
           <button
+            autoFocus={true}
             className={[styles["button"], styles["button--primary"]].join(' ')}
-            ref={deleteAnimalModalConfirmButtonRef}
             onClick={async () => {
               try {
                 await deleteAnimalFromDatabase(docID);
@@ -103,8 +96,8 @@ export function DeleteAnimalModal() {
         </header>
         <p className={styles["alert-modal__error"]}>{deleteDocError}</p>
         <button
+          autoFocus={true}
           className={[styles["button"], styles["button--primary"], styles["alert-modal__button"]].join(' ')}
-          ref={errorModalConfirmButtonRef}
           onClick={() => {
             setShowErrorModal(false);
           }}>OK</button>

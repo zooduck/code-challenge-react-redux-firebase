@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import Image from 'next/image';
 import styles from './animalDetails.module.css';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 export function AnimalDetails() {
   const data: any = useSelector((state: { animals: AnimalData[][]; selectedAnimal: string; }) => {
@@ -14,9 +14,9 @@ export function AnimalDetails() {
   const imageSrc = `/${image_url}`;
   const animalDetailsSection: any = useRef(null);
 
-  setTimeout(() => {
+  useEffect(() => {
     animalDetailsSection.current?.scrollIntoView();
-  });
+  }, [data]);
 
   if (name && description) {
     return (
