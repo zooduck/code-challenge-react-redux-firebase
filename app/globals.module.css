@@ -50,3 +50,10 @@
   overflow: hidden;
   text-align: center;
 }
+
+.alert-modal__error {
+  border: dotted 2px;
+  color: indianred;
+  margin-bottom: var(--_padding-size-medium);
+  padding: var(--_padding-size-medium);
+}

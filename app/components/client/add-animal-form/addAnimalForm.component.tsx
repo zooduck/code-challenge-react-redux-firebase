@@ -138,7 +138,7 @@ export function AddAnimalForm() {
             <h1 className={styles["alert-modal__heading"]}>YOU MUST BE LOGGED IN TO ADD ANIMALS</h1>
             <span>&#x1F62C;</span>
           </header>
-          <p>{addDocError}</p>
+          <p className={styles["alert-modal__error"]}>{addDocError}</p>
           <button
             autoFocus={true}
             ref={errorModalConfirmButtonRef}
